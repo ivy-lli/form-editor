@@ -1,0 +1,20 @@
+.editor-root {
+  display: grid;
+  width: 100%;
+  grid-template-areas: 'palette canvas properties';
+  grid-auto-columns: minmax(150px, 250px) minmax(250px, 100%) minmax(150px, 250px);
+}
+.palette-sidebar {
+  grid-area: palette;
+  height: 100vh;
+  border-right: var(--basic-border);
+}
+.canvas-block {
+  grid-area: canvas;
+  height: 100vh;
+}
+.properties-sidebar {
+  grid-area: properties;
+  height: 100vh;
+  border-left: var(--basic-border);
+}
