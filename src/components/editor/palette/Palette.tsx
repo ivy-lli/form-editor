@@ -20,11 +20,11 @@ export const Palette = ({ items }: PaletteProps) => {
   return (
     <div className='palette'>
       {Object.entries(groupedItems).map(([category, groupItems]) => (
-        <div className='palette-category'>
+        <div key={category} className='palette-category'>
           <span className='palette-category-title'>{category}</span>
           <div className='palette-category-items'>
             {groupItems.map(item => (
-              <PaletteItem item={item} />
+              <PaletteItem key={item.name} item={item} />
             ))}
           </div>
         </div>

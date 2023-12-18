@@ -11,10 +11,10 @@ export const PropertyItem = ({ property }: PropertyItemProps) => {
       case 'text':
       case 'number':
       case 'checkbox':
-        return <input type={prop.type} required={prop.required} value={prop.value} />;
+        return <input type={prop.type} required={prop.required} value={prop.value} onChange={e => prop.onChange(e.target.value)} />;
       case 'select':
         return (
-          <select required={prop.required} value={prop.value}>
+          <select required={prop.required} value={prop.value} onChange={e => prop.onChange(e.target.value)}>
             <option>test</option>
             <option>bla</option>
           </select>
