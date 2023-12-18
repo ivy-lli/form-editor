@@ -1,9 +1,9 @@
 import { PaletteItem } from './PaletteItem';
-import { PaletteComponent } from './palette-component';
+import { PaletteConfig } from './palette-config';
 import './Palette.css';
 
 type PaletteProps = {
-  items: Record<string, PaletteComponent[]>;
+  items: Record<string, PaletteConfig[]>;
 };
 
 export const Palette = ({ items }: PaletteProps) => {

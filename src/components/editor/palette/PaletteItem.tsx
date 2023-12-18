@@ -1,9 +1,9 @@
 import { useDraggable } from '@dnd-kit/core';
-import { PaletteComponent } from './palette-component';
+import { PaletteConfig } from './palette-config';
 import './PaletteItem.css';
 
 type PaletteItemProps = {
-  item: PaletteComponent;
+  item: PaletteConfig;
 };
 
 export const PaletteItem = ({ item }: PaletteItemProps) => {
@@ -16,5 +16,20 @@ export const PaletteItem = ({ item }: PaletteItemProps) => {
       </svg>
       <span>{item.name}</span>
     </div>
+  );
+};
+
+export const PaletteItemOverlay = ({ item }: Partial<PaletteItemProps>) => {
+  return (
+    <>
+      {item && (
+        <div className='palette-item'>
+          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'>
+            <path fill='currentColor' d={item.icon}></path>
+          </svg>
+          <span>{item.name}</span>
+        </div>
+      )}
+    </>
   );
 };

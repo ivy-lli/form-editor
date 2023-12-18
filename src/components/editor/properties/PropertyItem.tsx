@@ -1,22 +1,26 @@
+import { Field } from '../../components/component';
 import './PropertyItem.css';
-import { Property } from './properties-component';
 
 type PropertyItemProps = {
-  property: Property;
+  fieldName: string;
+  field: Field;
 };
 
-export const PropertyItem = ({ property }: PropertyItemProps) => {
-  const inputForType = (prop: Property) => {
+export const PropertyItem = ({ fieldName, field }: PropertyItemProps) => {
+  const inputFor = (prop: Field) => {
     switch (prop.type) {
       case 'text':
       case 'number':
       case 'checkbox':
-        return <input type={prop.type} required={prop.required} value={prop.value} onChange={e => prop.onChange(e.target.value)} />;
+        return <input type={prop.type} />;
+      case 'textarea':
+        return <textarea />;
       case 'select':
         return (
-          <select required={prop.required} value={prop.value} onChange={e => prop.onChange(e.target.value)}>
-            <option>test</option>
-            <option>bla</option>
+          <select>
+            {prop.options.map(option => (
+              <option value={option.value as string | number}>{option.label}</option>
+            ))}
           </select>
         );
     }
@@ -24,8 +28,8 @@ export const PropertyItem = ({ property }: PropertyItemProps) => {
   return (
     <div className='property-item'>
       <label>
-        <span>{property.label}</span>
-        {inputForType(property)}
+        <span>{field.label ? field.label : fieldName}</span>
+        {inputFor(field)}
       </label>
     </div>
   );

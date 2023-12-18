@@ -1,18 +1,18 @@
 import './Properties.css';
 import { PropertyItem } from './PropertyItem';
-import { Property } from './properties-component';
+import { PropertiesConfig } from './properties-config';
 
 type PropertiesProps = {
-  properties: Property[];
+  propertyConfig?: PropertiesConfig;
 };
 
-export const Properties = ({ properties }: PropertiesProps) => {
+export const Properties = ({ propertyConfig }: PropertiesProps) => {
   return (
     <div className='properties'>
       <span className='properties-title'>Properties</span>
-      {properties.map(prop => (
-        <PropertyItem key={prop.name} property={prop} />
-      ))}
+      {propertyConfig &&
+        propertyConfig.fields &&
+        Object.entries(propertyConfig.fields).map(([key, field]) => <PropertyItem key={key} fieldName={key} field={field} />)}
     </div>
   );
 };

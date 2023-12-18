@@ -2,10 +2,10 @@ import { Canvas } from './canvas/Canvas';
 import { Palette } from './palette/Palette';
 import { Properties } from './properties/Properties';
 import './Editor.css';
-import { properties } from './properties/props';
 import { useState } from 'react';
 import { DndContext, DragOverlay, DragStartEvent } from '@dnd-kit/core';
 import { componentByName, componentsGroupByCategroy } from '../components/component';
+import { PaletteItemOverlay } from './palette/PaletteItem';
 
 export const Editor = () => {
   const [activeId, setActiveId] = useState<string | undefined>();
@@ -21,10 +21,10 @@ export const Editor = () => {
           <Canvas />
         </div>
         <div className='properties-sidebar'>
-          <Properties properties={properties} />
+          <Properties propertyConfig={componentByName('Input')} />
         </div>
       </div>
-      <DragOverlay>{activeId ? componentByName(activeId) : null}</DragOverlay>
+      <DragOverlay>{activeId ? <PaletteItemOverlay item={componentByName(activeId)} /> : null}</DragOverlay>
     </DndContext>
   );
 };
