@@ -4,12 +4,14 @@ import { LinkComponent } from './Link';
 import { FlexComponent } from './Flex';
 import { groupBy } from '../utils/array';
 
+export type UiComponentProps<Props> = Props & { id: string };
+
 type DefaultComponentProps = {
   [key: string]: any;
   editMode?: boolean;
 };
 
-type UiComponent<Props extends DefaultComponentProps = DefaultComponentProps> = (props: Props & { id: string }) => JSX.Element;
+type UiComponent<Props extends DefaultComponentProps = DefaultComponentProps> = (props: UiComponentProps<Props>) => JSX.Element;
 
 type BaseField = {
   label?: string;
@@ -61,12 +63,33 @@ export type ComponentConfig<ComponentProps extends DefaultComponentProps = Defau
   fields?: Fields<ComponentProps>;
 };
 
-export const components = [InputComponent, TextComponent, LinkComponent, FlexComponent];
+export type Config<
+  Props extends {
+    [key: string]: any;
+  } = {
+    [key: string]: any;
+  }
+> = {
+  components: {
+    [ComponentName in keyof Props]: Omit<ComponentConfig<Props[ComponentName], Props[ComponentName]>, 'type'>;
+  };
+};
+
+export const config: Config = {
+  components: {
+    Input: InputComponent,
+    Text: TextComponent,
+    Link: LinkComponent,
+    Flex: FlexComponent
+  }
+};
+
+// export const components = [InputComponent, TextComponent, LinkComponent, FlexComponent];
 
 export const componentsGroupByCategroy = () => {
-  return groupBy(components, item => item.category);
+  return groupBy(Object.values(config.components), item => item.category);
 };
 
 export const componentByName = (name: string) => {
-  return components.find(component => component.name === name);
+  return config.components[name]; //components.find(component => component.name === name);
 };

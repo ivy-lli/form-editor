@@ -1,12 +1,15 @@
+import { Config } from '../../components/component';
+import { useData } from '../../data/useData';
 import './Properties.css';
 import { PropertyItem } from './PropertyItem';
-import { PropertiesConfig } from './properties-config';
 
 type PropertiesProps = {
-  propertyConfig?: PropertiesConfig;
+  config: Config;
 };
 
-export const Properties = ({ propertyConfig }: PropertiesProps) => {
+export const Properties = ({ config }: PropertiesProps) => {
+  const { element } = useData();
+  const propertyConfig = element ? config.components[element?.type] : undefined;
   return (
     <div className='properties'>
       <span className='properties-title'>Properties</span>

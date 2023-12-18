@@ -12,6 +12,7 @@
 .canvas-block {
   grid-area: canvas;
   height: 100vh;
+  margin: 1rem;
 }
 .properties-sidebar {
   grid-area: properties;
