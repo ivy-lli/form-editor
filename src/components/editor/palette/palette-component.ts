@@ -1,9 +1,3 @@
-import { ReactNode } from 'react';
+import { Component } from '../../components/component';
 
-export type PaletteComponent = {
-  name: string;
-  category: string;
-  icon: string;
-  description: string;
-  component: ReactNode;
-};
+export type PaletteComponent = Omit<Component<object>, 'component' | 'defaultProps'>;
