@@ -1,4 +1,5 @@
 import { ComponentConfig } from './component';
+import './Input.css';
 
 type InputProps = {
   label: string;
@@ -37,7 +38,7 @@ export const InputComponent: ComponentConfig<InputProps> = {
 };
 
 const Input = ({ label, ...props }: InputProps) => (
-  <label>
+  <label className='input'>
     <span>{label}</span>
     <input onChange={() => {}} {...props} />
   </label>

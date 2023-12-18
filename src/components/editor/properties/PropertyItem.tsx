@@ -1,7 +1,11 @@
-import { ChangeEvent, ChangeEventHandler, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Field } from '../../components/component';
 import { useData } from '../../data/useData';
 import './PropertyItem.css';
+import { InputField } from './fields/InputField';
+import { CheckboxField } from './fields/CheckboxField';
+import { TextareaField } from './fields/TextareaField';
+import { SelectField } from './fields/SelectField';
 
 type PropertyItemProps = {
   fieldName: string;
@@ -10,35 +14,28 @@ type PropertyItemProps = {
 
 export const PropertyItem = ({ fieldName, field }: PropertyItemProps) => {
   const { element, setElement } = useData();
-  const [value, setValue] = useState('');
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
+  const [value, setValue] = useState<any>();
+  const onChange = (newValue: any) => {
+    setValue(newValue);
     if (element) {
-      element.props[fieldName] = e.target.value;
+      element.props[fieldName] = newValue;
       setElement(element);
     }
   };
   useEffect(() => {
     setValue(element ? element.props[fieldName] : '');
   }, [element, fieldName]);
-  const inputFor = (prop: Field) => {
-    switch (prop.type) {
+  const inputFor = (field: Field) => {
+    switch (field.type) {
       case 'text':
       case 'number':
+        return <InputField field={field} value={value ?? ''} onChange={onChange} />;
       case 'checkbox':
-        return <input type={prop.type} value={value} onChange={onChange} />;
+        return <CheckboxField field={field} value={value ?? false} onChange={onChange} />;
       case 'textarea':
-        return <textarea value={value} />;
+        return <TextareaField value={value ?? ''} onChange={onChange} />;
       case 'select':
-        return (
-          <select value={value}>
-            {prop.options.map(option => (
-              <option key={`${option.value}`} value={option.value as string | number}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        );
+        return <SelectField field={field} value={value} onChange={onChange} />;
     }
   };
   return (

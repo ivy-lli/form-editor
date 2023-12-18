@@ -13,20 +13,20 @@ type DefaultComponentProps = {
 
 type UiComponent<Props extends DefaultComponentProps = DefaultComponentProps> = (props: UiComponentProps<Props>) => JSX.Element;
 
-type BaseField = {
+export type BaseField = {
   label?: string;
 };
-type TextField = BaseField & {
+export type TextField = BaseField & {
   type: 'text' | 'number' | 'textarea' | 'checkbox';
 };
-type SelectField = BaseField & {
+export type SelectField = BaseField & {
   type: 'select' | 'radio';
   options: {
     label: string;
     value: string | number | boolean;
   }[];
 };
-type ArrayField<
+export type ArrayField<
   Props extends {
     [key: string]: any;
   } = {
