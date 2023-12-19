@@ -37,9 +37,9 @@ export const InputComponent: ComponentConfig<InputProps> = {
   }
 };
 
-const Input = ({ label, ...props }: InputProps) => (
+const Input = ({ label, required, value }: InputProps) => (
   <label className='input'>
     <span>{label}</span>
-    <input onChange={() => {}} {...props} />
+    <input onChange={() => {}} value={value} required={required} />
   </label>
 );
