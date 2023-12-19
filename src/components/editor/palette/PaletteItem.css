@@ -1,4 +1,5 @@
 .palette-item {
+  background: var(--background);
   border: var(--basic-border);
   border-radius: var(--border-radius);
   padding: var(--size-2);

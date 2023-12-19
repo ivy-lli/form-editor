@@ -19,7 +19,7 @@ export const LinkComponent: ComponentConfig<LinkProps> = {
   render: props => <Link {...props} />,
   fields: {
     link: { type: 'text' },
-    href: { type: 'checkbox' }
+    href: { type: 'text' }
   }
 };
 

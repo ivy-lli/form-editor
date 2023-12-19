@@ -1,3 +1,4 @@
-.draggable.selected {
+.draggable:where(.selected, .dragging) {
   outline: 2px #88b0da solid;
+  background-color: var(--background);
 }
