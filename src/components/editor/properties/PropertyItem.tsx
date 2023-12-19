@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Field } from '../../components/component';
 import { useData } from '../../data/useData';
 import './PropertyItem.css';

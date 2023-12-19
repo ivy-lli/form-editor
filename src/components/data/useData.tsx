@@ -25,7 +25,8 @@ export const useData = () => {
   const element = data.content.find(obj => obj.id === selectedElement);
   const setElement = (element: ContentData) => {
     const newData = structuredClone(data);
-    newData.content[0] = element;
+    const index = newData.content.findIndex(obj => obj.id === element.id);
+    newData.content[index] = element;
     setData(newData);
   };
   return { element, setElement };
