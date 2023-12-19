@@ -1,4 +1,5 @@
 import { ComponentConfig } from './component';
+import './Text.css';
 
 type TextProps = {
   textContent: string;
@@ -20,4 +21,4 @@ export const TextComponent: ComponentConfig<TextProps> = {
   }
 };
 
-const Text = ({ textContent }: TextProps) => <p>{textContent}</p>;
+const Text = ({ textContent }: TextProps) => <p className='text'>{textContent}</p>;

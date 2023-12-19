@@ -23,7 +23,7 @@ export const Draggable = ({ config, data }: DraggableProps) => {
       {...listeners}
       {...attributes}
     >
-      {config.render(data.props)}
+      {config.render({ id: data.id, ...data.props })}
     </div>
   );
 };

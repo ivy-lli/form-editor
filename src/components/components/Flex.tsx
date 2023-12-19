@@ -1,4 +1,6 @@
-import { ComponentConfig } from './component';
+import { DropZone } from '../editor/canvas/DropZone';
+import { ComponentConfig, UiComponentProps } from './component';
+import './Flex.css';
 
 type FlexProps = {
   itemCount: number;
@@ -20,10 +22,14 @@ export const FlexComponent: ComponentConfig<FlexProps> = {
   }
 };
 
-const Flex = ({ itemCount }: FlexProps) => (
-  <div>
-    {Array(itemCount).map((_e, i) => (
-      <div key={i}>Column</div>
-    ))}
-  </div>
-);
+const Flex = ({ itemCount, id }: UiComponentProps<FlexProps>) => {
+  return (
+    <div className='flex'>
+      {Array.from(Array(itemCount).keys()).map(column => (
+        <div className='flex-column' key={column}>
+          <DropZone id={`${id}-column${column}`} visible={true} />
+        </div>
+      ))}
+    </div>
+  );
+};

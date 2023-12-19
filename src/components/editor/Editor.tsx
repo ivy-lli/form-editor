@@ -41,7 +41,7 @@ const moveComponent = (id: string, data: ContentData[], target: UniqueIdentifier
 export const Editor = () => {
   const [data, setData] = useState<UiEditorData>({
     root: {},
-    content: [{ id: 'test', type: 'Input', props: { label: 'test', value: 'hi' } }]
+    content: []
   });
   const [selectedElement, setSelectedElement] = useState('');
   const [activeId, setActiveId] = useState<string | undefined>();
