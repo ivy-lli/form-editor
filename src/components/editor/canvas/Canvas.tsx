@@ -15,11 +15,12 @@ export const Canvas = ({ config }: CanvasProps) => {
     <div className='canvas'>
       {data.content.map(obj => (
         <Fragment key={obj.id}>
-          <DropZone id={obj.id} />
-          <Draggable key={obj.id} config={config.components[obj.type]} data={obj} />
+          <DropZone id={obj.id}>
+            <Draggable key={obj.id} config={config.components[obj.type]} data={obj} />
+          </DropZone>
         </Fragment>
       ))}
-      <DropZone id='canvas' />
+      <DropZone id='canvas' visible={true} />
     </div>
   );
 };
