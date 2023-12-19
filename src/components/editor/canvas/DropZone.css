@@ -1,0 +1,9 @@
+.drop-zone {
+  background: #f3f6fb;
+  outline: 2px dashed #abc7e5;
+  height: 20px;
+}
+
+.drop-zone.is-drop-target {
+  background: #88b0da;
+}

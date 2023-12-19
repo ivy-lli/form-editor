@@ -4,13 +4,3 @@
   display: flex;
   flex-direction: column;
 }
-
-.canvas-drop-zone {
-  background: #f3f6fb;
-  outline: 2px dashed #abc7e5;
-  height: 50px;
-}
-
-.canvas-drop-zone.is-drop-target {
-  background: #88b0da;
-}

@@ -1,8 +1,9 @@
-import { useDroppable } from '@dnd-kit/core';
 import './Canvas.css';
 import { Config } from '../../components/component';
 import { Draggable } from './Draggable';
 import { useAppContext } from '../../data/useData';
+import { DropZone } from './DropZone';
+import { Fragment } from 'react';
 
 type CanvasProps = {
   config: Config;
@@ -10,13 +11,15 @@ type CanvasProps = {
 
 export const Canvas = ({ config }: CanvasProps) => {
   const { data } = useAppContext();
-  const { isOver, setNodeRef } = useDroppable({ id: 'canvas' });
   return (
     <div className='canvas'>
       {data.content.map(obj => (
-        <Draggable key={obj.id} config={config.components[obj.type]} data={obj} />
+        <Fragment key={obj.id}>
+          <DropZone id={obj.id} />
+          <Draggable key={obj.id} config={config.components[obj.type]} data={obj} />
+        </Fragment>
       ))}
-      <div ref={setNodeRef} className={`canvas-drop-zone${isOver ? ' is-drop-target' : ''}`}></div>
+      <DropZone id='canvas' />
     </div>
   );
 };

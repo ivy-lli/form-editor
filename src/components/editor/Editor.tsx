@@ -3,15 +3,20 @@ import { Palette } from './palette/Palette';
 import { Properties } from './properties/Properties';
 import './Editor.css';
 import { useState } from 'react';
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, MouseSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, MouseSensor, UniqueIdentifier, useSensor, useSensors } from '@dnd-kit/core';
 import { ComponentConfig, componentByName, componentsGroupByCategroy, config } from '../components/component';
 import { PaletteItemOverlay } from './palette/PaletteItem';
 import { AppProvider } from '../data/useData';
-import { UiEditorData } from '../data/data';
+import { ContentData, UiEditorData } from '../data/data';
 import { v4 as uuid } from 'uuid';
 
-const addNewComponent = (component: ComponentConfig, data: UiEditorData) => {
-  data.content.push({ id: `${component.name}-${uuid()}`, type: component.name, props: structuredClone(component.defaultProps) });
+const targetIndex = (data: ContentData[], target: UniqueIdentifier) => {
+  const id = `${target}`.replace('DropZone-', '');
+  const targetIndex = data.findIndex(obj => obj.id === id);
+  if (targetIndex === -1) {
+    return data.length - 1;
+  }
+  return targetIndex;
 };
 
 const arraymove = <TArr extends object>(arr: TArr[], fromIndex: number, toIndex: number) => {
@@ -20,11 +25,16 @@ const arraymove = <TArr extends object>(arr: TArr[], fromIndex: number, toIndex:
   arr.splice(toIndex, 0, element);
 };
 
-const moveComponent = (id: string, data: UiEditorData) => {
-  const element = data.content.find(obj => obj.id === id);
+const addNewComponent = (component: ComponentConfig, data: ContentData[], target: UniqueIdentifier) => {
+  data.push({ id: `${component.name}-${uuid()}`, type: component.name, props: structuredClone(component.defaultProps) });
+  arraymove(data, data.length - 1, targetIndex(data, target));
+};
+
+const moveComponent = (id: string, data: ContentData[], target: UniqueIdentifier) => {
+  const element = data.find(obj => obj.id === id);
   if (element) {
-    const fromIndex = data.content.indexOf(element);
-    arraymove(data.content, fromIndex, data.content.length - 1);
+    const fromIndex = data.indexOf(element);
+    arraymove(data, fromIndex, targetIndex(data, target));
   }
 };
 
@@ -41,9 +51,9 @@ export const Editor = () => {
       const newData = structuredClone(data);
       const component = componentByName(activeId);
       if (component) {
-        addNewComponent(component, newData);
+        addNewComponent(component, newData.content, target);
       } else {
-        moveComponent(activeId, newData);
+        moveComponent(activeId, newData.content, target);
       }
       setData(newData);
     }
